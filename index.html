@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-300">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nick Davidson | Robotics & Data Consulting</title>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-gray-900 text-white p-6 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="logo.png" alt="ND Logo" class="h-12 w-12 rounded" />
+        <h1 class="text-2xl font-bold">Nick Davidson</h1>
+      </div>
+      <nav class="flex space-x-6 items-center">
+        <ul class="flex space-x-6">
+          <li><a href="about.html" class="hover:underline">About</a></li>
+          <li><a href="robotics.html" class="hover:underline">Robotics</a></li>
+          <li><a href="data.html" class="hover:underline">Data</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+        <button onclick="toggleDarkMode()" class="ml-4 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm">
+          Toggle Dark Mode
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gray-100 py-20 text-center dark:bg-gray-800">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold mb-4">Hi, I'm Nick Davidson</h2>
+      <p class="text-xl">I build robots, solve data problems, and teach others to do the same.</p>
+      <div class="mt-8 space-x-4">
+        <a href="robotics.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Explore Robotics</a>
+        <a href="data.html" class="inline-block px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700">View Data Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-6 dark:bg-gray-800">
+    <p>&copy; 2025 Nick Davidson. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>

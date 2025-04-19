@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-300">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robotics Projects | Nick Davidson</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+  <header class="bg-gray-800 text-white p-6 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="logo.png" alt="ND Logo" class="h-12 w-12 rounded" />
+        <h1 class="text-2xl font-bold">Nick Davidson</h1>
+      </div>
+      <nav class="flex space-x-6 items-center">
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+          <li><a href="data.html" class="hover:underline">Data</a></li>
+          <li><a href="about.html" class="hover:underline">About</a></li>
+        </ul>
+        <button onclick="toggleDarkMode()" class="ml-4 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm">
+          Toggle Dark Mode
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-bold mb-8">Robotics Projects</h2>
+
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-2xl font-semibold">Two-Wheeled Object-Avoiding Bot</h3>
+        <p>A small mobile robot that uses ultrasonic sensors and basic logic to navigate around obstacles.</p>
+      </div>
+
+      <div>
+        <h3 class="text-2xl font-semibold">SCARA Robot (in development)</h3>
+        <p>A more advanced arm-style robot that uses stepper motors to perform repetitive motion tasks.</p>
+      </div>
+
+      <div>
+        <h3 class="text-2xl font-semibold">Rubik’s Cube Solver (planned)</h3>
+        <p>Ambitious project using computer vision and mechanical control to autonomously solve a Rubik’s Cube.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white text-center py-6">
+    <p>&copy; 2025 Nick Davidson. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
