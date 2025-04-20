@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="transition-colors duration-300">
+<html lang="en" class="dark transition-colors duration-300">
 
 <head>
   <meta charset="UTF-8">
@@ -11,9 +11,8 @@
     }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/theme.js"></script>
   <script>
-    function toggleDarkMode() {
+    function removedToggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     }
@@ -47,7 +46,7 @@
           <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
-        </button>
+         -->
       </div>
       <nav class="hidden md:flex space-x-6 items-center">
         <ul class="flex space-x-6">
@@ -56,9 +55,9 @@
           <li><a href="/data.html" class="hover:underline">Data</a></li>
           <li><a href="/contact.html" class="hover:underline">Contact</a></li>
         </ul>
-        <button onclick="toggleDarkMode()" class="ml-4 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm">
+        <!-- <!-- Removed toggleDarkMode button 
           Toggle Dark Mode
-        </button>
+         --> -->
       </nav>
     </div>
     <!-- Mobile Menu -->
@@ -68,7 +67,7 @@
         <li><a href="/about.html" class="block px-4 py-2 hover:underline">About</a></li>
         <li><a href="/data.html" class="block px-4 py-2 hover:underline">Data</a></li>
         <li><a href="/contact.html" class="block px-4 py-2 hover:underline">Contact</a></li>
-        <!-- <li><button onclick="toggleDarkMode()" class="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm">Toggle Dark Mode</button></li> -->
+        <!-- <li><button onclick="toggleDarkMode()" class="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm">Toggle Dark Mode --></li> -->
       </ul>
     </div>
   </header>
