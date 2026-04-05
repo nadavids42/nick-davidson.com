@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexapod Robot | Nick Davidson</title>
+  <meta name="description" content="Designing and building a six-legged robot from scratch to explore locomotion, control systems, and embodied AI." />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header-inner">
+    <div>
+      <div class="brand-name">Nick Davidson</div>
+      <div class="brand-tag">Systems, AI, robotics, and real-world problem solving</div>
+    </div>
+    <nav class="nav">
+      <a href="/index.html#about">About</a>
+      <a href="/index.html#work">Work</a>
+      <a href="/index.html#projects">Projects</a>
+      <a href="/index.html#writing">Writing</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="content">
+    <div class="eyebrow">Project • Robotics</div>
+    <h1>Hexapod Robot</h1>
+    <p class="lead">
+      A fully custom-built six-legged robot designed to explore locomotion, control systems, and the challenges of real-world robotics.
+    </p>
+  </div>
+</section>
+
+<article class="content">
+
+  <section class="section-card">
+    <div class="small-label">Overview</div>
+    <p>
+      I built this hexapod robot from scratch as a way to move beyond purely software-based systems and into something physical. 
+      Robotics forces you to deal with constraints that software alone often hides: power delivery, timing, mechanical limits, and the unpredictability of the real world.
+    </p>
+
+    <p>
+      The robot uses 18 servos, a custom control stack, and an Xbox controller for teleoperation. It implements a tripod gait 
+      for stable walking and supports turning, strafing, and custom movement patterns.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">The Goal</div>
+    <h2>Why a hexapod?</h2>
+
+    <p>
+      I chose a hexapod specifically because it sits at an interesting point in robotics:
+    </p>
+
+    <ul>
+      <li>More stable than bipeds or quadrupeds</li>
+      <li>Complex enough to require real coordination and planning</li>
+      <li>Simple enough to implement without advanced hardware</li>
+    </ul>
+
+    <p>
+      The goal wasn’t just to make it move — it was to understand how coordinated motion emerges from relatively simple rules and constraints.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">System Architecture</div>
+    <h2>Hardware + software working together</h2>
+
+    <h3>Hardware</h3>
+    <ul>
+      <li>18x MG996R servos (3 per leg)</li>
+      <li>Raspberry Pi 5 (primary controller)</li>
+      <li>Dual PCA9685 servo driver boards</li>
+      <li>4S LiPo battery</li>
+      <li>Dedicated power regulation (buck + BEC)</li>
+    </ul>
+
+    <h3>Control System</h3>
+    <ul>
+      <li>Xbox controller for real-time input</li>
+      <li>Analog stick mapping for movement and turning</li>
+      <li>D-pad for gait switching</li>
+      <li>Buttons for custom actions and animations</li>
+    </ul>
+
+    <h3>Software</h3>
+    <ul>
+      <li>Tripod gait implementation</li>
+      <li>Interpolated motion between positions</li>
+      <li>Leg grouping and phase coordination</li>
+      <li>Real-time input handling</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+  <div class="small-label">Design Attribution</div>
+  <h2>What I built vs. what I adapted</h2>
+
+  <p>
+    The leg design used in this project was adapted from an existing open-source hexapod design.
+    I used this as a starting point to accelerate development and focus on system-level challenges.
+  </p>
+
+  <p>
+    Source:
+    <a href="https://www.instructables.com/Hexapod-Robot/" target="_blank">
+      Hexapod Robot (Instructables)
+    </a>
+  </p>
+
+  <p>
+    I redesigned the core body structure, including the torso layout, mounting system, electronics integration,
+    and overall system architecture. The project evolved into a full system build rather than a direct replication,
+    with a focus on control, power distribution, and real-time behavior.
+  </p>
+</section>
+  
+  <section class="section-card">
+    <div class="small-label">Key Challenges</div>
+    <h2>What actually made this hard</h2>
+
+    <p>
+      Building the robot was straightforward. Making it work well was not.
+    </p>
+
+    <ul>
+      <li><strong>Power distribution:</strong> Managing voltage and current across 18 servos without brownouts or instability.</li>
+      <li><strong>Coordination:</strong> Ensuring multiple legs moved in sync without conflicting forces.</li>
+      <li><strong>Gait stability:</strong> Early versions “worked” but were unstable or inefficient.</li>
+      <li><strong>Timing and interpolation:</strong> Smooth motion required careful control of transitions between positions.</li>
+      <li><strong>Debugging:</strong> Issues could come from hardware, wiring, power, or software logic.</li>
+    </ul>
+
+    <p>
+      One of the biggest lessons was that “working” is not the same as “stable” or “usable.” Getting from one to the other 
+      required iteration across both hardware and software.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">What I Learned</div>
+
+    <ul>
+      <li>Hardware exposes flaws immediately — there’s no abstraction layer to hide behind</li>
+      <li>Power systems are just as important as code</li>
+      <li>Small timing changes can have large physical effects</li>
+      <li>Coordination problems grow quickly with system complexity</li>
+      <li>Iteration is unavoidable — and valuable</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">What’s Next</div>
+    <h2>Where this is going</h2>
+
+    <p>
+      This robot is a foundation for exploring more advanced ideas:
+    </p>
+
+    <ul>
+      <li>Switching to ESP32-based control for improved efficiency</li>
+      <li>Adding onboard perception (camera, sensors)</li>
+      <li>Moving from teleoperation to semi-autonomous behavior</li>
+      <li>Exploring adaptive gait and terrain handling</li>
+    </ul>
+
+    <p>
+      Longer term, this project connects directly to a bigger question I’m interested in:
+      how intelligence emerges when software is forced to operate in a physical world.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Media</div>
+    <p>
+      (Add photos or videos here as available — final build shots and short clips of movement are ideal.)
+    </p>
+  </section>
+
+  <section class="section-card">
+    <a class="button secondary" href="/index.html#projects">Back to Projects</a>
+  </section>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  <div class="content">Nick Davidson — portfolio site in progress.</div>
+</footer>
+
+</body>
+</html>
