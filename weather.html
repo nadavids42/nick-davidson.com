@@ -1,353 +1,589 @@
-<style>
-  .blog-post {
-    max-width: 840px;
-    margin: 0 auto;
-    padding: 2rem 1rem 4rem;
-    color: #eaeaea;
-    line-height: 1.75;
-    font-size: 1.05rem;
-  }
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Massachusetts Weather Trends Analysis | Nick Davidson</title>
+  <meta
+    name="description"
+    content="Cleaning, exploring, and analyzing more than a century of Massachusetts weather data."
+  />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.06);
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+      --soft: #8a8a8a;
+      --accent: #7dd3fc;
+      --accent-soft: rgba(125, 211, 252, 0.12);
+      --border: rgba(255,255,255,0.10);
+      --max: 1120px;
+      --content: 840px;
+      --radius: 28px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
 
-  .post-header {
-    margin-bottom: 2.5rem;
-  }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-  .post-meta {
-    color: #9ca3af;
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-  }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.75;
+    }
 
-  .post-subtitle {
-    color: #c4c4c4;
-    font-size: 1.15rem;
-    max-width: 700px;
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .blog-post h1,
-  .blog-post h2 {
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-  .blog-post h1 {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
-    margin: 0 0 1rem;
-  }
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
 
-  .blog-post h2 {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    font-size: 1.7rem;
-  }
+    .content {
+      width: min(calc(100% - 32px), var(--content));
+      margin: 0 auto;
+    }
 
-  .blog-post p {
-    margin: 1rem 0;
-  }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid var(--border);
+    }
 
-  .blog-post img {
-    width: 100%;
-    border-radius: 16px;
-    display: block;
-  }
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+    }
 
-  .blog-post figure {
-    margin: 1.5rem 0;
-  }
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
 
-  .blog-post figcaption {
-    margin-top: 0.6rem;
-    font-size: 0.9rem;
-    color: #9ca3af;
-  }
+    .brand-tag {
+      font-size: 0.94rem;
+      color: var(--soft);
+      margin-top: 2px;
+    }
 
-  .blog-post pre {
-    background: #111827;
-    color: #e5e7eb;
-    padding: 1rem;
-    border-radius: 14px;
-    overflow-x: auto;
-    font-size: 0.92rem;
-  }
+    .nav {
+      display: flex;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
 
-  .blog-post code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
+    .nav a {
+      font-size: 0.94rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
 
-  .blog-post ul {
-    padding-left: 1.25rem;
-  }
+    .nav a:hover {
+      color: var(--text);
+    }
 
-  .chart-embed {
-    margin: 1.5rem 0;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-</style>
-<article class="blog-post">
-  <header class="post-header">
-    <p class="post-meta">May 1–2, 2025</p>
-    <h1>Massachusetts Weather Trends Analysis</h1>
-    <p class="post-subtitle">
-      Cleaning, exploring, and analyzing more than a century of Massachusetts weather data.
-    </p>
+    .hero {
+      padding: 72px 0 32px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      background: var(--accent-soft);
+      color: #c7efff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.25rem);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+
+    p {
+      margin: 1rem 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .lead {
+      font-size: 1.14rem;
+      max-width: 760px;
+    }
+
+    .post-meta {
+      color: var(--soft);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .section {
+      padding: 18px 0;
+    }
+
+    .section-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin: 24px 0;
+    }
+
+    .small-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    figure {
+      margin: 1.5rem 0;
+    }
+
+    figure img {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    figcaption {
+      margin-top: 0.7rem;
+      font-size: 0.92rem;
+      color: var(--soft);
+    }
+
+    pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.92rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      color: var(--muted);
+    }
+
+    li {
+      margin: 0.5rem 0;
+    }
+
+    .chart-embed {
+      margin: 1.5rem 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .chart-embed iframe {
+      display: block;
+      width: 100%;
+      min-height: 600px;
+      border: 0;
+      background: white;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: #ffffff;
+      color: #111111;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.08);
+    }
+
+    .button.secondary {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button.secondary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .back-link {
+      margin-top: 22px;
+    }
+
+    .footer {
+      padding: 24px 0 44px;
+      color: var(--soft);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .site-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        gap: 14px 18px;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .section-card {
+        padding: 22px;
+      }
+
+      .chart-embed iframe {
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div>
+        <div class="brand-name">Nick Davidson</div>
+        <div class="brand-tag">Systems, AI, robotics, writing, and real-world problem solving</div>
+      </div>
+      <nav class="nav">
+        <a href="/index.html#about">About</a>
+        <a href="/index.html#work">Work</a>
+        <a href="/index.html#projects">Projects</a>
+        <a href="/index.html#writing">Writing</a>
+        <a href="/index.html#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <section>
-    <p>
-      I moved to Massachusetts in the summer of 2015, and from what I’ve been told, I still haven’t experienced a
-      “real” winter. The last one that earned that title was apparently the brutal 2014–2015 season. That got me
-      wondering how weather in Massachusetts has actually changed over time — especially winter.
-    </p>
+  <main>
+    <section class="hero">
+      <div class="content">
+        <div class="eyebrow">Project • Data Analysis</div>
+        <p class="post-meta">May 1–2, 2025</p>
+        <h1>Massachusetts Weather Trends Analysis</h1>
+        <p class="lead">
+          Cleaning, exploring, and analyzing more than a century of Massachusetts weather data.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="/index.html#projects">Back to Projects</a>
+        </div>
+      </div>
+    </section>
 
-    <p>
-      This project started as a simple weather analysis, but quickly turned into something much bigger: a data
-      cleaning and exploration process involving hundreds of weather stations, millions of records, and a few wrong
-      turns along the way.
-    </p>
+    <article class="content">
+      <section class="section-card">
+        <div class="small-label">Overview</div>
+        <p>
+          I moved to Massachusetts in the summer of 2015, and from what I’ve been told, I still haven’t experienced a
+          “real” winter. The last one that earned that title was apparently the brutal 2014–2015 season. That got me
+          wondering how weather in Massachusetts has actually changed over time, especially in winter.
+        </p>
+        <p>
+          This project started as a simple weather analysis, but quickly turned into something much bigger: a data
+          cleaning and exploration process involving hundreds of weather stations, millions of records, and a few wrong
+          turns along the way.
+        </p>
+        <p>
+          Instead of just showing the final charts, I wanted to show the path it took to get there, because with real
+          data, the path is often the most interesting part.
+        </p>
+      </section>
 
-    <p>
-      Instead of just showing the final charts, I wanted to show the path it took to get there — because with real
-      data, the path is often the most interesting part.
-    </p>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Finding the Data</div>
+        <h2>Starting with NOAA</h2>
+        <p>
+          As with most data projects, the first challenge was simply finding usable data. NOAA made it easy to search for
+          historical weather records by region, and I initially tried to pull everything for Massachusetts from 1901 to
+          the present.
+        </p>
+        <p>That did not go well.</p>
 
-  <section>
-    <h2>Finding the Data</h2>
+        <figure>
+          <img src="/img/uploads/error1.png" alt="NOAA query size error message">
+          <figcaption>My first attempt was a little too ambitious.</figcaption>
+        </figure>
 
-    <p>
-      As with most data projects, the first challenge was simply finding usable data. NOAA made it easy to search for
-      historical weather records by region, and I initially tried to pull everything for Massachusetts from 1901 to
-      the present.
-    </p>
+        <p>
+          That query would have returned 105,559 station-years and 30.84 GB of compressed data. After extracting only a
+          partial year-by-year download, I was already staring at nearly 70 GB of files. That was more than I wanted to
+          process locally, so I changed tactics and went straight to the NOAA directory structure instead.
+        </p>
 
-    <p>
-      That did not go well.
-    </p>
+        <p>
+          After some digging, I found a list of Massachusetts stations and wrote a small script to download only the
+          relevant station files. That brought the project back into manageable territory: 274 files totaling 449.2 MB.
+        </p>
 
-    <figure>
-      <img src="/img/uploads/error1.png" alt="NOAA query size error message">
-      <figcaption>My first attempt was a little too ambitious.</figcaption>
-    </figure>
+        <pre><code>wget -r -nd -np -A 'US1MA*.csv.gz' ftp://ftp.ncei.noaa.gov/pub/data/ghcn/daily/by_station/</code></pre>
+      </section>
 
-    <p>
-      That query would have returned 105,559 station-years and 30.84 GB of compressed data. After extracting only a
-      partial year-by-year download, I was already staring at nearly 70 GB of files. That was more than I wanted to
-      process locally, so I changed tactics and went straight to the NOAA directory structure instead. :contentReference[oaicite:4]{index=4}
-    </p>
+      <section class="section-card">
+        <div class="small-label">Data Cleaning</div>
+        <h2>Making the station data usable</h2>
 
-    <p>
-      After some digging, I found a list of Massachusetts stations and wrote a small script to download only the
-      relevant station files. That brought the project back into manageable territory: 274 files totaling 449.2 MB. :contentReference[oaicite:5]{index=5}
-    </p>
+        <p>
+          The next problem was that the station metadata file wasn’t as clean as I expected. My first pass assumed it was
+          tab-separated. It wasn’t. Then I tried splitting on whitespace. That also failed because some town names contain
+          multiple words.
+        </p>
 
-    <pre><code class="language-bash">wget -r -nd -np -A 'US1MA*.csv.gz' ftp://ftp.ncei.noaa.gov/pub/data/ghcn/daily/by_station/</code></pre>
-  </section>
+        <p>
+          The fix was to read it as a fixed-width file instead. Once I did that, the station data fell into place and I
+          could assign proper column names like station ID, latitude, longitude, elevation, state, and town.
+        </p>
 
-  <section>
-    <h2>Cleaning the Station Data</h2>
+        <figure>
+          <img src="/img/uploads/output_9_0.png" alt="Massachusetts weather station scatter plot">
+          <figcaption>Weather station locations across Massachusetts.</figcaption>
+        </figure>
 
-    <p>
-      The next problem was that the station metadata file wasn’t as clean as I expected. My first pass assumed it was
-      tab-separated. It wasn’t. Then I tried splitting on whitespace. That also failed because some town names contain
-      multiple words.
-    </p>
+        <p>
+          From there, I downloaded all the raw station files and started exploring their structure. NOAA’s station-level
+          files store each weather element-day as a separate row, so before I could analyze anything meaningfully, I had
+          to merge the records with station metadata, convert units, and pivot the data into a flatter structure where
+          each row represented a station-date combination.
+        </p>
 
-    <p>
-      The fix was to read it as a fixed-width file instead. Once I did that, the station data fell into place and I
-      could assign proper column names like station ID, latitude, longitude, elevation, state, and town. :contentReference[oaicite:6]{index=6} :contentReference[oaicite:7]{index=7}
-    </p>
-
-    <figure>
-      <img src="/img/uploads/output_9_0.png" alt="Massachusetts weather station scatter plot">
-      <figcaption>Weather station locations across Massachusetts.</figcaption>
-    </figure>
-
-    <p>
-      From there, I downloaded all the raw station files and started exploring their structure. NOAA’s station-level
-      files store each weather element-day as a separate row, so before I could analyze anything meaningfully, I had
-      to merge the records with station metadata, convert units, and pivot the data into a flatter structure where
-      each row represented a station-date combination. :contentReference[oaicite:8]{index=8}
-    </p>
-
-    <pre><code class="language-python">pivoted = merged_df.pivot_table(
+        <pre><code>pivoted = merged_df.pivot_table(
     index=['station_id','date','town','state','lat','lon','elevation'],
     columns='element',
     values='value_converted'
 ).reset_index()</code></pre>
 
-    <p>
-      The result was a much more analysis-friendly dataset with roughly 3.2 million rows. At that point, the data was
-      finally in a shape I could work with. :contentReference[oaicite:9]{index=9}
-    </p>
-  </section>
+        <p>
+          The result was a much more analysis-friendly dataset with roughly 3.2 million rows. At that point, the data was
+          finally in a shape I could work with.
+        </p>
+      </section>
 
-  <section>
-    <h2>What the Cleaning Process Revealed</h2>
+      <section class="section-card">
+        <div class="small-label">What the cleaning revealed</div>
+        <p>
+          This stage was a good reminder that “loading the data” and “understanding the data” are not the same thing.
+          Much of the effort went into figuring out what the raw files actually meant, converting scaled values into real
+          units, and attaching context like location and elevation so the dataset became interpretable instead of just
+          technically valid.
+        </p>
 
-    <p>
-      This stage was a good reminder that “loading the data” and “understanding the data” are not the same thing.
-      Much of the effort went into figuring out what the raw files actually meant, converting scaled values into real
-      units, and attaching context like location and elevation so the dataset became interpretable instead of just
-      technically valid.
-    </p>
+        <p>
+          In the end, I had an analysis-ready dataset with millions of weather records, hundreds of stations, and enough
+          metadata to start asking better questions about temperature, snowfall, and winter trends in Massachusetts.
+        </p>
+      </section>
 
-    <p>
-      In the end, I had an analysis-ready dataset with millions of weather records, hundreds of stations, and enough
-      metadata to start asking better questions about temperature, snowfall, and winter trends in Massachusetts. :contentReference[oaicite:10]{index=10}
-    </p>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Analysis</div>
+        <h2>Temperature trends</h2>
 
-  <section>
-    <h2>Part 2: Analyzing the Data</h2>
+        <p>
+          Once the cleaning was finished, I moved into the part I had been looking forward to all along: asking what the
+          data might actually say.
+        </p>
 
-    <p>
-      Once the cleaning was finished, I moved into the part I had been looking forward to all along: asking what the
-      data might actually say.
-    </p>
+        <p>
+          I started with a simple assumption: August is probably the hottest month on average, and February is probably
+          the coldest. Using those as rough stand-ins for peak summer and deep winter, I plotted statewide average maximum
+          temperatures over time and added linear trend lines.
+        </p>
 
-    <p>
-      I started with a simple assumption: August is probably the hottest month on average, and February is probably
-      the coldest. Using those as rough stand-ins for peak summer and deep winter, I plotted statewide average maximum
-      temperatures over time and added linear trend lines. :contentReference[oaicite:11]{index=11} :contentReference[oaicite:12]{index=12}
-    </p>
+        <div class="chart-embed">
+          <iframe
+            src="/charts/fig_temperature_line.html"
+            loading="lazy"
+            title="Average Monthly Max Temperature: August vs February"></iframe>
+        </div>
 
-    <div class="chart-embed">
-      <iframe
-        width="100%"
-        height="600"
-        src="/charts/fig_temperature_line.html"
-        frameborder="0"
-        loading="lazy"
-        title="Average Monthly Max Temperature: August vs February">
-      </iframe>
-    </div>
+        <div class="chart-embed">
+          <iframe
+            src="/charts/fig_temperature_trend.html"
+            loading="lazy"
+            title="Average Monthly TMAX Over Time with Trend Lines"></iframe>
+        </div>
 
-    <div class="chart-embed">
-      <iframe
-        width="100%"
-        height="600"
-        src="/charts/fig_temperature_trend.html"
-        frameborder="0"
-        loading="lazy"
-        title="Average Monthly TMAX Over Time with Trend Lines">
-      </iframe>
-    </div>
+        <p>
+          The raw year-to-year values are noisy, but the trend lines make the bigger pattern clear: both months are
+          warming, and February is warming faster than August. My regression estimates came out to about 0.38°F per decade
+          for February and 0.29°F per decade for August. In other words, winters appear to be losing their chill faster
+          than summers are heating up.
+        </p>
 
-    <p>
-      The raw year-to-year values are noisy, but the trend lines make the bigger pattern clear: both months are
-      warming, and February is warming faster than August. My regression estimates came out to about 0.38°F per decade
-      for February and 0.29°F per decade for August. In other words, winters appear to be losing their chill faster
-      than summers are heating up. :contentReference[oaicite:13]{index=13}
-    </p>
+        <div class="chart-embed">
+          <iframe
+            src="/charts/fig_temperature_trend_proj.html"
+            loading="lazy"
+            title="Projected Average Monthly TMAX Trends"></iframe>
+        </div>
+      </section>
 
-    <div class="chart-embed">
-      <iframe
-        width="100%"
-        height="600"
-        src="/charts/fig_temperature_trend_proj.html"
-        frameborder="0"
-        loading="lazy"
-        title="Projected Average Monthly TMAX Trends">
-      </iframe>
-    </div>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Snow</div>
+        <h2>Snowfall and snow depth</h2>
 
-  <section>
-    <h2>Snowfall and Snow Depth</h2>
+        <p>
+          Rising temperatures naturally raise the next question: what does that mean for snow?
+        </p>
 
-    <p>
-      Rising temperatures naturally raise the next question: what does that mean for snow?
-    </p>
+        <p>
+          I looked at two different measures: average winter snow depth and total winter snowfall. Snow depth trends
+          downward over time, by about 0.06 inches per decade in my linear fit, suggesting shallower and less persistent
+          snow cover.
+        </p>
 
-    <p>
-      I looked at two different measures: average winter snow depth and total winter snowfall. Snow depth trends
-      downward over time, by about 0.06 inches per decade in my linear fit, suggesting shallower and less persistent
-      snow cover. :contentReference[oaicite:14]{index=14}
-    </p>
+        <div class="chart-embed">
+          <iframe
+            src="/charts/average_snow_depth.html"
+            loading="lazy"
+            title="Average Winter Snow Depth Over Time"></iframe>
+        </div>
 
-    <div class="chart-embed">
-      <iframe
-        width="100%"
-        height="600"
-        src="/charts/average_snow_depth.html"
-        frameborder="0"
-        loading="lazy"
-        title="Average Winter Snow Depth Over Time">
-      </iframe>
-    </div>
+        <p>
+          But total snowfall told a more complicated story: it actually trended upward in this dataset, even as snow depth
+          declined.
+        </p>
 
-    <p>
-      But total snowfall told a more complicated story: it actually trended upward in this dataset, even as snow depth
-      declined. :contentReference[oaicite:15]{index=15}
-    </p>
+        <div class="chart-embed">
+          <iframe
+            src="/charts/total_snow.html"
+            loading="lazy"
+            title="Total Winter Snowfall Over Time"></iframe>
+        </div>
 
-    <div class="chart-embed">
-      <iframe
-        width="100%"
-        height="600"
-        src="/charts/total_snow.html"
-        frameborder="0"
-        loading="lazy"
-        title="Total Winter Snowfall Over Time">
-      </iframe>
-    </div>
+        <p>
+          That apparent contradiction makes more sense when you think about the mechanics. Warmer air can hold more
+          moisture, which can produce heavier snowfall during storms. At the same time, warmer winters also mean more thaw
+          cycles, faster melting, and more rain at the edges of winter. The result can be more snow falling overall, but
+          less of it sticking around.
+        </p>
+      </section>
 
-    <p>
-      That apparent contradiction makes more sense when you think about the mechanics. Warmer air can hold more
-      moisture, which can produce heavier snowfall during storms. At the same time, warmer winters also mean more thaw
-      cycles, faster melting, and more rain at the edges of winter. The result can be more snow falling overall, but
-      less of it sticking around. :contentReference[oaicite:16]{index=16}
-    </p>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Data quality</div>
+        <h2>Station coverage matters</h2>
 
-  <section>
-    <h2>Station Coverage Matters</h2>
+        <p>
+          One thing this project made very clear is that not every station reports every weather variable. When I first
+          built a statewide map of average maximum temperature, the result looked sparse and a little odd. After digging
+          deeper, I found that many stations simply do not report TMAX or TMIN, which explains the missing coverage and
+          reinforces how important it is to inspect source completeness before trusting a visualization.
+        </p>
 
-    <p>
-      One thing this project made very clear is that not every station reports every weather variable. When I first
-      built a statewide map of average maximum temperature, the result looked sparse and a little odd. After digging
-      deeper, I found that many stations simply do not report TMAX or TMIN, which explains the missing coverage and
-      reinforces how important it is to inspect source completeness before trusting a visualization. :contentReference[oaicite:17]{index=17} :contentReference[oaicite:18]{index=18}
-    </p>
+        <figure>
+          <img src="/img/uploads/output_67_0.png" alt="Heatmap showing which stations track which elements">
+          <figcaption>Not every station reports every variable — a useful reminder before over-interpreting maps.</figcaption>
+        </figure>
+      </section>
 
-    <figure>
-      <img src="/img/uploads/output_67_0.png" alt="Heatmap showing which stations track which elements">
-      <figcaption>Not every station reports every variable — a useful reminder before over-interpreting maps.</figcaption>
-    </figure>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Takeaways</div>
+        <h2>Main findings</h2>
 
-  <section>
-    <h2>Main Takeaways</h2>
+        <ul>
+          <li>Winter temperatures are rising, especially in February.</li>
+          <li>Average snow depth is decreasing over time.</li>
+          <li>Total snowfall appears to be increasing, even as snow cover becomes less persistent.</li>
+          <li>Station coverage varies widely, so data cleaning and source vetting matter as much as the charts.</li>
+        </ul>
 
-    <ul>
-      <li>Winter temperatures are rising, especially in February.</li>
-      <li>Average snow depth is decreasing over time.</li>
-      <li>Total snowfall appears to be increasing, even as snow cover becomes less persistent.</li>
-      <li>Station coverage varies widely, so data cleaning and source vetting matter as much as the charts.</li>
-    </ul>
+        <p>
+          These aren’t just abstract numbers. They line up with a lived experience many people in New England already
+          recognize: winters are getting milder, snow is less likely to stick around, and the freeze-thaw cycle feels more
+          pronounced than it used to.
+        </p>
+      </section>
 
-    <p>
-      These aren’t just abstract numbers. They line up with a lived experience many people in New England already
-      recognize: winters are getting milder, snow is less likely to stick around, and the freeze-thaw cycle feels more
-      pronounced than it used to.
-    </p>
-  </section>
+      <section class="section-card">
+        <div class="small-label">Next steps</div>
+        <h2>Where I’d take this next</h2>
 
-  <section>
-    <h2>What’s Next</h2>
+        <p>
+          This was only the first phase of the project. The next steps I’d want to explore include precipitation extremes,
+          cross-state comparisons, interactive dashboards, and possibly linking weather trends to more human-centered data
+          like school closings, snow removal budgets, or energy use.
+        </p>
 
-    <p>
-      This was only the first phase of the project. The next steps I’d want to explore include precipitation extremes,
-      cross-state comparisons, interactive dashboards, and possibly linking weather trends to more human-centered data
-      like school closings, snow removal budgets, or energy use. :contentReference[oaicite:19]{index=19}
-    </p>
+        <p>
+          Working with this much data wasn’t quick, but it was worth it. The process mirrored the climate story itself:
+          messy, nonlinear, and full of surprises. One of the simplest lessons from the whole exercise is still the best
+          one: look at the data. It doesn’t yell. It doesn’t spin. But it is always talking, if you’re willing to listen.
+        </p>
 
-    <p>
-      Working with this much data wasn’t quick, but it was worth it. The process mirrored the climate story itself:
-      messy, nonlinear, and full of surprises. One of the simplest lessons from the whole exercise is still the best
-      one: look at the data. It doesn’t yell. It doesn’t spin. But it is always talking, if you’re willing to listen. :contentReference[oaicite:20]{index=20}
-    </p>
-  </section>
-</article>
+        <div class="back-link">
+          <a class="button secondary" href="/index.html#projects">Back to Projects</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="content">Nick Davidson — portfolio site in progress.</div>
+  </footer>
+</body>
+</html>
