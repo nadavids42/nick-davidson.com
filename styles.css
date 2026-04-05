@@ -223,6 +223,29 @@ p, li {
   margin: 24px 0;
 }
 
+.meta-card {
+  align-self: stretch;
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.meta-label {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.meta-value {
+  color: var(--muted);
+}
+
 .card h3,
 .section-card h3 {
   margin: 0;
