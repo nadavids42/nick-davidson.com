@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEP Solar Test Yard Research | Nick Davidson</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header-inner">
+    <div>
+      <div class="brand-name">Nick Davidson</div>
+      <div class="brand-tag">Systems, AI, robotics, and real-world problem solving</div>
+    </div>
+    <nav class="nav">
+      <a href="/index.html#about">About</a>
+      <a href="/index.html#work">Work</a>
+      <a href="/index.html#projects">Projects</a>
+      <a href="/index.html#writing">Writing</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="content">
+    <div class="eyebrow">Project • Research</div>
+    <h1>TEP Solar Test Yard Research</h1>
+    <p class="lead">
+      Undergraduate solar research focused on instrumentation, calibration, and performance analysis at the Tucson Solar Test Yard,
+      a large photovoltaic research facility operated in partnership with Tucson Electric Power and the University of Arizona.
+    </p>
+  </div>
+  <div class="section-card">
+    <strong>Organization:</strong> University of Arizona / Tucson Electric Power<br>
+    <strong>Focus:</strong> Solar energy, instrumentation, calibration, data acquisition<br>
+    <strong>Period:</strong> 2008–2009<br>
+    <strong>Collaborators:</strong> Ryan Price, Dr. Alex Cronin, Daniel Cormode, Vincent Lonij
+  </div>
+</section>
+
+<article class="content">
+
+  <section class="section-card">
+    <div class="small-label">Overview</div>
+    <p>
+      This work centered on the Tucson Solar Test Yard, a utility-owned photovoltaic facility built to study how different solar panel
+      technologies perform in Tucson’s climate. After the yard had been constructed but the research was left largely dormant,
+      Dr. Alex Cronin organized a partnership that turned it into a live teaching and research environment for University of Arizona students.
+    </p>
+
+    <p>
+      My role involved helping document the yard, calibrate instrumentation, support data collection, and translate technical work into a form
+      that could be shared with both technical and public audiences. That meant not only understanding the science and hardware,
+      but also building repeatable processes for measurement and explaining what the data meant.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Project Scale</div>
+    <h2>A real-world solar research environment</h2>
+
+    <p>
+      The scale of the test yard made it far more than a classroom exercise. The site included about 650 photovoltaic panels arranged into 22
+      separate systems, with roughly 90 kW peak power to the grid and an estimated total cost of about $3 million including upkeep.
+      Each string functioned as a complete monitored system with panels, a DC sensors box, an AC power meter, an inverter,
+      a thermocouple, and a data logger card.
+    </p>
+
+    <ul>
+      <li>650 photovoltaic panels across 22 systems</li>
+      <li>Approximately 90 kW peak power to grid</li>
+      <li>Multiple inverter types including Xantrex, Fronius, and Beacon Power</li>
+      <li>Funding support from TEP, AzRISE, and NREL</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Research Goals</div>
+    <h2>From instrumentation to long-term performance analysis</h2>
+
+    <p>
+      The immediate goal was to install, verify, and calibrate equipment capable of monitoring DC voltage, DC current, AC power,
+      and temperature across the yard. The longer-term goal was broader: understand photovoltaic performance in Tucson,
+      study how variables such as temperature and fill factor affected output, and create a platform for testing new solar technologies.
+    </p>
+
+    <p>
+      In practice, this project sat at the intersection of physics, electrical systems, and data analysis. It required careful hands-on work,
+      but it also required enough analytical discipline to ensure the resulting measurements were trustworthy.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">System Architecture</div>
+    <h2>How the yard was monitored</h2>
+
+    <p>
+      Each photovoltaic string fed through a DC sensors box and inverter into the grid, while a data acquisition layer continuously tracked
+      key operating values. The monitoring system combined electrical measurement hardware with a local network and web interface,
+      making it possible to collect operational data at scale.
+    </p>
+
+    <h3>Measured inputs</h3>
+    <ul>
+      <li>DC voltage</li>
+      <li>DC current</li>
+      <li>AC power output</li>
+      <li>Temperature via thermocouples</li>
+    </ul>
+
+    <h3>Acquisition approach</h3>
+    <ul>
+      <li>Continuous logger monitoring across strings</li>
+      <li>AC meters configured to record energy delivery to the grid</li>
+      <li>Data collected every second and averaged every minute</li>
+      <li>Local network and web interface for access to readings</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Calibration Work</div>
+    <h2>Where the rigor lived</h2>
+
+    <p>
+      A major part of the work involved calibration. Because each hall probe and voltage divider behaved slightly differently,
+      every string had to be calibrated separately. That mattered: even small hardware changes could materially alter calibration equations,
+      and without recalibration the reported data could become misleading.
+    </p>
+
+    <p>
+      DC voltage calibration used an external voltage supply and digital multimeter readings to build linear fits between logger values
+      and true panel voltage. DC current calibration used a wrapped-wire setup through hall probes to generate known currents,
+      then transformed logger readings into total system current while accounting for parallel string geometry.
+      Temperature measurements were standardized through Omega devices configured over a fixed Celsius range.
+    </p>
+
+    <ul>
+      <li>Each string calibrated independently</li>
+      <li>Linear-fit equations used to convert digital logger readings to physical values</li>
+      <li>Recalibration required after hardware changes</li>
+      <li>Calibration quality directly affected downstream efficiency and performance analysis</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Technologies Studied</div>
+    <h2>Comparing photovoltaic approaches</h2>
+
+    <p>
+      One of the most interesting aspects of the yard was the range of photovoltaic technologies represented. The project included systems
+      from multiple manufacturers and at least four primary panel categories, creating a practical test bed for comparing performance,
+      cost, and efficiency under the same local environmental conditions.
+    </p>
+
+    <ul>
+      <li>Polycrystalline silicon</li>
+      <li>Thin-film silicon</li>
+      <li>CIGS (Copper Indium Gallium Selenide)</li>
+      <li>Monocrystalline silicon</li>
+    </ul>
+
+    <p>
+      This made the site valuable not just for operating a solar installation, but for evaluating how different design choices translated into
+      real-world energy production in desert conditions.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">What I Contributed</div>
+    <h2>Technical work and technical communication</h2>
+
+    <p>
+      This project pushed me to operate in two modes at once. On one side was the hands-on engineering work: instrumentation,
+      calibration, measurement discipline, and understanding how the hardware actually behaved. On the other was communication:
+      documenting procedures, presenting the research, and helping make the work understandable to different audiences.
+    </p>
+
+    <ul>
+      <li>Helped document the solar yard and its instrumentation</li>
+      <li>Supported calibration procedures for voltage, current, and temperature monitoring</li>
+      <li>Worked with data acquisition concepts and performance comparisons</li>
+      <li>Contributed to presentation and public-facing explanation of the research</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Lessons</div>
+    <h2>What this project taught me</h2>
+
+    <ul>
+      <li>Good data depends on disciplined calibration, not just measurement</li>
+      <li>Physical systems rarely behave identically, even when they appear similar on paper</li>
+      <li>Technical work becomes more valuable when it is documented clearly</li>
+      <li>Research environments require both analytical thinking and practical caution</li>
+      <li>Public-facing science communication is a skill in its own right</li>
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Future Direction</div>
+    <h2>Why the work mattered</h2>
+
+    <p>
+      The yard was designed not only to study current photovoltaic systems, but to support future research into irradiance measurement,
+      panel cleaning effects, power storage, and smarter inverter technologies capable of responding to intermittent generation.
+      That broader vision is what made the project compelling: it was a chance to contribute to a live platform for applied energy research,
+      not just a static academic exercise.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Media</div>
+    <p>
+      This page is based on the original student manual and presentation materials. If you want, photos, charts, or scans from the original
+      project can be added later as a visual gallery section.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <a class="button secondary" href="/index.html#projects">Back to Projects</a>
+  </section>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  <div class="content">Nick Davidson — portfolio site in progress.</div>
+</footer>
+
+</body>
+</html>
