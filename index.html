@@ -1,96 +1,583 @@
-<!DOCTYPE html>
-<html lang="en" class="dark transition-colors duration-300">
-
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nick Davidson | Robotics & Data Consulting</title>
-  <script>
-    tailwind.config = {
-      darkMode: 'class'
-    }
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    function removedToggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nick Davidson | Portfolio</title>
+  <meta name="description" content="Nick Davidson portfolio site: systems, AI, robotics, writing, and real-world problem solving." />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.06);
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+      --soft: #8a8a8a;
+      --accent: #7dd3fc;
+      --accent-soft: rgba(125, 211, 252, 0.12);
+      --border: rgba(255,255,255,0.10);
+      --max: 1120px;
+      --radius: 28px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
 
-    function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
     }
 
-    window.onload = () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.94rem;
+      color: var(--soft);
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.94rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    section {
+      padding: 52px 0;
+    }
+
+    .hero {
+      padding: 80px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      background: var(--accent-soft);
+      color: #c7efff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.75rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      margin: 0;
+      max-width: 900px;
+    }
+
+    .hero p.lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 22px 0 0;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .button.primary {
+      background: #ffffff;
+      color: #111111;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.08);
+    }
+
+    .button.secondary {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button.secondary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .small-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    .section-note {
+      color: var(--soft);
+      font-size: 0.94rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .job {
+      margin-bottom: 18px;
+    }
+
+    .job-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .job-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .job-company {
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .job-period {
+      color: var(--soft);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      transform: translateY(-50%);
+    }
+
+    .project-tag {
+      display: inline-flex;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .contact-band {
+      border: 1px solid rgba(125, 211, 252, 0.20);
+      background: linear-gradient(135deg, rgba(125,211,252,0.10), rgba(255,255,255,0.03), transparent);
+      border-radius: 32px;
+      padding: 34px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .footer {
+      padding: 22px 0 40px;
+      color: var(--soft);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
       }
-    };
-  </script>
-</head>
 
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
-  <!-- Header -->
-  <header class="bg-gray-900 text-white p-6 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <img src="/img/logo.png" alt="ND Logo" class="h-12 w-12 rounded" />
-        <h1 class="text-2xl font-bold">Nick Davidson</h1>
+      .section-head,
+      .job-top,
+      .site-header-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .nav {
+        gap: 14px 18px;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div>
+        <div class="brand-name">Nick Davidson</div>
+        <div class="brand-tag">Systems, AI, robotics, writing, and real-world problem solving</div>
       </div>
-      <div class="md:hidden">
-        <button onclick="toggleMenu()" class="text-white focus:outline-none">
-          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-      </div>
-      <nav class="hidden md:flex space-x-6 items-center">
-        <ul class="flex space-x-6">
-          <li><a href="/about.html" class="hover:underline">About</a></li>
-          <li><a href="/robotics.html" class="hover:underline">Robotics</a></li>
-          <li><a href="/data.html" class="hover:underline">Data</a></li>
-          <li><a href="/contact.html" class="hover:underline">Contact</a></li>
-        </ul>
-        <!-- Removed toggleDarkMode button 
-          Toggle Dark Mode
-         -->
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
       </nav>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden mt-4">
-      <ul class="space-y-4">
-        <li><a href="/about.html" class="block px-4 py-2 hover:underline">About</a></li>
-        <li><a href="/robotics.html" class="block px-4 py-2 hover:underline">Robotics</a></li>
-        <li><a href="/data.html" class="block px-4 py-2 hover:underline">Data</a></li>
-        <li><a href="/contact.html" class="block px-4 py-2 hover:underline">Contact</a></li>
-<!--         <li><button onclick="toggleDarkMode()" class="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm">Toggle Dark Mode </li> -->
-      </ul>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-gray-100 py-20 text-center dark:bg-gray-800">
-    <div class="max-w-3xl mx-auto">
-      <!--<h2 class="text-4xl font-bold mb-4">Hi, I'm Nick! Welcome to my site!</h2> -->
-      <p class="text-xl">I build robots, solve data problems, and teach others to do the same.</p>
-      <div class="mt-8 space-x-4">
-        <a href="/robotics.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Explore Robotics</a>
-        <a href="/data.html" class="inline-block px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700">View Data Projects</a>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Available for AI, systems, and technical leadership opportunities</div>
+          <h1>I take complex, ambiguous problems and turn them into systems that actually work.</h1>
+          <p class="lead">I’m a systems-focused consultant and builder with a background in physics, data analytics, and technical delivery. My work lives at the intersection of AI, automation, implementation, robotics, and real-world adoption.</p>
+          <div class="button-row">
+            <a class="button primary" href="#projects">View Projects</a>
+            <a class="button secondary" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+        <aside class="card">
+          <div class="small-label">Current Focus</div>
+          <p>Enterprise AI, analytics, and systems delivery</p>
+          <p>Robotics and embodied systems projects</p>
+          <p>Technical writing, portfolio storytelling, and project documentation</p>
+          <p>Building a stronger bridge between real-world implementation and modern AI</p>
+        </aside>
       </div>
-      <!-- Image -->
-      <div class="flex-1 mt-8 md:mt-5">
-        <img src="/img/family.jpg" alt="The Davidsons" class="rounded-2xl shadow-lg w-64 h-84 object-cover mx-auto md:mx-0" />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white text-center py-6 dark:bg-gray-800">
-    <p>&copy; 2025 Nick Davidson. All rights reserved.</p>
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="small-label">About</div>
+            <h2>A portfolio site that is both professional and personal</h2>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Systems That Work in Reality</h3>
+            <p>I like the messy part: taking ambiguous goals, technical constraints, and real-world friction, then turning them into systems people can actually use.</p>
+          </article>
+          <article class="card">
+            <h3>Technical Depth, Practical Range</h3>
+            <p>My background spans physics, data analytics, implementation, automation, and hands-on building. I am comfortable moving between theory, tooling, and execution.</p>
+          </article>
+          <article class="card">
+            <h3>Builder and Communicator</h3>
+            <p>I build things, document them, explain them, and improve them. That includes enterprise systems, robotics projects, technical writing, and portfolio work.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="small-label">Work</div>
+            <h2>Selected experience</h2>
+          </div>
+        </div>
+
+        <article class="card job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-role">Senior Strategic Consultant II</h3>
+              <div class="job-company">Bullhorn</div>
+            </div>
+            <div class="job-period">2022 — Present</div>
+          </div>
+          <ul class="bullet-list">
+            <li>Lead enterprise implementations across analytics, automation, and AI-powered products.</li>
+            <li>Translate complex workflows into scalable system designs and measurable outcomes.</li>
+            <li>Known for recovering high-visibility, at-risk projects and restoring client confidence.</li>
+          </ul>
+        </article>
+
+        <article class="card job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-role">Lead Implementation Architect / Data Systems Specialist</h3>
+              <div class="job-company">Vision Government Solutions</div>
+            </div>
+            <div class="job-period">2015 — 2017, 2022</div>
+          </div>
+          <ul class="bullet-list">
+            <li>Led large-scale data migration and transformation efforts.</li>
+            <li>Automated recurring data workflows and reduced manual effort across the client base.</li>
+            <li>Served as a SQL and migration strategy SME.</li>
+          </ul>
+        </article>
+
+        <article class="card job">
+          <div class="job-top">
+            <div>
+              <h3 class="job-role">Implementation Consultant</h3>
+              <div class="job-company">Tyler Technologies</div>
+            </div>
+            <div class="job-period">2017 — 2021</div>
+          </div>
+          <ul class="bullet-list">
+            <li>Designed workflow automation systems for municipal clients.</li>
+            <li>Translated business requirements into structured logic and reporting solutions.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="small-label">Projects</div>
+            <h2>Things I’ve built, studied, or kept alive</h2>
+          </div>
+          <div class="section-note">A mix of hardware, data, writing, and systems thinking</div>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="project-top">
+              <h3>Hexapod Robotics</h3>
+              <span class="project-tag">Robotics</span>
+            </div>
+            <p>A custom-built six-legged robot exploring locomotion, control systems, and future AI-based perception and behavior.</p>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Machine Learning Notebook Project</h3>
+              <span class="project-tag">ML</span>
+            </div>
+            <p>A full pipeline project centered on cleaning, exploring, and modeling real-world survey data.</p>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Solar Test Yard System</h3>
+              <span class="project-tag">Data Systems</span>
+            </div>
+            <p>An early large-scale instrumentation and calibration project involving a solar research facility, continuous data collection, and operational handoff documentation.</p>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Portfolio Writing Archive</h3>
+              <span class="project-tag">Writing</span>
+            </div>
+            <p>Selected technical and analytical writing across physics, systems, and long-form thought pieces.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-2">
+        <article class="card">
+          <div class="small-label">Why this site exists</div>
+          <h2>More than a resume</h2>
+          <p>I wanted a place that could show the full range of my work: implementation leadership, technical systems thinking, robotics, writing, old research, and the thread connecting all of it.</p>
+          <p>Resumes flatten people. This site is meant to do the opposite.</p>
+        </article>
+
+        <article class="card">
+          <div class="small-label">What I am optimizing for</div>
+          <h2>Useful, thoughtful, technically grounded work</h2>
+          <ul class="bullet-list">
+            <li>AI and systems roles where ambiguity is part of the job.</li>
+            <li>Projects that bridge software, operations, and the physical world.</li>
+            <li>Work that benefits from both technical depth and communication clarity.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="small-label">Writing</div>
+            <h2>Ideas worth expanding</h2>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>From Physics to Applied AI Systems</h3>
+            <p>How first-principles thinking, data work, and implementation experience converged into a systems-oriented career.</p>
+          </article>
+          <article class="card">
+            <h3>What It Means to Make a System Actually Work</h3>
+            <p>A practical perspective on delivery, ambiguity, adoption, and the gap between demos and reality.</p>
+          </article>
+          <article class="card">
+            <h3>Building a Robot as a Thinking Tool</h3>
+            <p>Why robotics is such a powerful way to reconnect software, hardware, and reasoning.</p>
+          </article>
+          <article class="card">
+            <h3>Old Work, New Signal</h3>
+            <p>Revisiting early research, writing, and systems projects to understand the through-line in how I think and build.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-band">
+          <div class="small-label">Contact</div>
+          <h2>Let’s build something useful</h2>
+          <p style="max-width: 760px; color: var(--muted); font-size: 1rem;">I’m interested in roles and collaborations focused on AI systems, technical delivery, implementation, analytics, and real-world problem solving.</p>
+          <div class="contact-links">
+            <a class="button primary" href="mailto:davidson.na@gmail.com">davidson.na@gmail.com</a>
+            <a class="button secondary" href="#">LinkedIn</a>
+            <a class="button secondary" href="#">Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">Nick Davidson — portfolio site in progress.</div>
   </footer>
 </body>
-
 </html>
