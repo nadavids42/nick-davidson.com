@@ -134,8 +134,13 @@
     <div class="eyebrow">Project • Robotics</div>
     <h1>Hexapod Robot</h1>
     <p class="lead">
-      A fully custom-built six-legged robot designed to explore locomotion, control systems, and the challenges of real-world robotics.
+      A six-legged robot built to explore real-world locomotion, control systems, and the challenges of coordinating hardware and software at scale.
     </p>
+  </div>
+  <div class="section-card">
+    <strong>Stack:</strong> Raspberry Pi, PCA9685, Python<br>
+    <strong>Focus:</strong> Robotics, Control Systems<br>
+    <strong>Status:</strong> Functional, expanding to V2
   </div>
 </section>
 
@@ -176,7 +181,9 @@
   <section class="section-card">
     <div class="small-label">System Architecture</div>
     <h2>Hardware + software working together</h2>
-
+    <p>
+      The system is composed of three tightly coupled layers: hardware, control, and software.
+    </p>
     <h3>Hardware</h3>
     <ul>
       <li>18x MG996R servos (3 per leg)</li>
@@ -257,6 +264,7 @@
       <li>Small timing changes can have large physical effects</li>
       <li>Coordination problems grow quickly with system complexity</li>
       <li>Iteration is unavoidable — and valuable</li>
+      <li>“Working” hardware is easy — stable, repeatable motion is not</li>
     </ul>
   </section>
 
