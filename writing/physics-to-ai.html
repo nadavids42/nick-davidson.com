@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Physics to Applied AI Systems | Nick Davidson</title>
+  <meta
+    name="description"
+    content="A path from physics to data, implementation, robotics, and applied AI systems."
+  />
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.06);
+      --text: #f5f5f5;
+      --muted: #b3b3b3;
+      --soft: #8a8a8a;
+      --accent: #7dd3fc;
+      --accent-soft: rgba(125, 211, 252, 0.12);
+      --border: rgba(255,255,255,0.10);
+      --max: 1120px;
+      --radius: 28px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .content {
+      width: min(calc(100% - 32px), 840px);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.94rem;
+      color: var(--soft);
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.94rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    section {
+      padding: 52px 0;
+    }
+
+    .hero {
+      padding: 80px 0 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      background: var(--accent-soft);
+      color: #c7efff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.75rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      margin: 0;
+      max-width: 900px;
+    }
+
+    .hero p.lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 22px 0 0;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .button.primary {
+      background: #ffffff;
+      color: #111111;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.08);
+    }
+
+    .button.secondary {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button.secondary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .card,
+    .section-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .card h3,
+    .section-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p,
+    .card li,
+    .section-card p,
+    .section-card li {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .small-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 0 0 14px 0;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0.8rem 0 0.2rem;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      padding: 22px 0 40px;
+      color: var(--soft);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 960px) {
+      .site-header-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .nav {
+        gap: 14px 18px;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div>
+        <div class="brand-name">Nick Davidson</div>
+        <div class="brand-tag">Systems, AI, robotics, writing, and real-world problem solving</div>
+      </div>
+      <nav class="nav">
+        <a href="/index.html#about">About</a>
+        <a href="/index.html#work">Work</a>
+        <a href="/index.html#projects">Projects</a>
+        <a href="/index.html#writing">Writing</a>
+        <a href="/index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="content">
+        <div class="eyebrow">Writing</div>
+        <h1>From Physics to Applied AI Systems</h1>
+        <p class="lead">
+          A path that started with equations and ended in systems that have to work in the real world.
+        </p>
+        <div class="button-row">
+          <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+        </div>
+      </div>
+    </section>
+
+    <article class="content">
+      <section class="section-card">
+        <div class="small-label">Starting Point</div>
+        <h2>Physics trains you to think in systems</h2>
+
+        <p>
+          My academic background is in physics. At the time, I didn’t fully understand how broadly applicable that training would be.
+          What physics actually teaches you isn’t just formulas or problem sets — it teaches you how to think in systems.
+        </p>
+
+        <p>
+          You learn to break complex problems into smaller components, understand how those components interact, and reason about behavior under constraints.
+          You learn to ask: what actually matters here, and what can be ignored?
+        </p>
+
+        <p>
+          That mindset has ended up being more valuable than any specific equation I learned.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">First Transition</div>
+        <h2>From theory to data</h2>
+
+        <p>
+          After school, my work shifted into data and implementation. At first, that felt like a departure from physics.
+          In reality, it was the same type of thinking applied to different systems.
+        </p>
+
+        <p>
+          Instead of modeling physical systems, I was working with business processes, datasets, and software platforms.
+          The problems were less clean, the data was messier, and the constraints were often unclear.
+        </p>
+
+        <p>
+          That’s where I learned something important: real-world systems rarely behave as cleanly as theoretical ones.
+          Most of the work isn’t in analysis — it’s in making the system usable, reliable, and understandable.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Interlude</div>
+        <h2>Learning systems the hard way</h2>
+
+        <p>
+          Before fully transitioning into technical roles, I spent several years managing restaurants.
+          At the time, it didn’t feel connected to anything I had studied.
+        </p>
+
+        <p>
+          In hindsight, it was one of the most valuable systems experiences I’ve had.
+        </p>
+
+        <p>
+          Restaurants are real-time, high-pressure systems with constant variability.
+          Staffing changes, supply issues, customer demand, and operational constraints all interact at once.
+          There’s no pause button, and no clean abstraction layer.
+        </p>
+
+        <p>
+          You learn quickly that small breakdowns cascade, communication matters more than process documents,
+          and “good enough” decisions made quickly are often better than perfect ones made too late.
+        </p>
+
+        <p>
+          It was the first time I had to think about systems not as something to analyze,
+          but as something to keep running.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Implementation Work</div>
+        <h2>Where things either work or they don’t</h2>
+
+        <p>
+          In consulting and implementation roles, there’s no ambiguity about whether something is successful.
+          Either the system works in production, or it doesn’t.
+        </p>
+
+        <p>
+          I spent years translating business requirements into working systems: analytics platforms, automation pipelines, reporting layers.
+          That meant dealing with incomplete information, evolving requirements, and real consequences when things broke.
+        </p>
+
+        <p>
+          Over time, I became less interested in individual tools and more interested in the systems themselves:
+          how they were structured, where they failed, and how to make them more resilient.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Building Again</div>
+        <h2>Reintroducing the physical world</h2>
+
+        <p>
+          More recently, I started building again — this time in robotics.
+        </p>
+
+        <p>
+          Projects like my hexapod robot forced me to reconnect software with the physical world.
+          Timing, power, coordination, and mechanical constraints suddenly mattered again in a very immediate way.
+        </p>
+
+        <p>
+          There’s no abstraction layer to hide behind in hardware. If something is wrong, you see it instantly.
+        </p>
+
+        <p>
+          That experience reinforced something I had started to suspect: the most interesting systems sit at the boundary between software and the real world.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Where AI Fits</div>
+        <h2>From models to systems</h2>
+
+        <p>
+          AI is often discussed in terms of models: architectures, training methods, benchmarks.
+          Those are important, but they’re only part of the picture.
+        </p>
+
+        <p>
+          In practice, AI systems have to exist inside larger systems:
+          data pipelines, interfaces, feedback loops, and real-world constraints.
+        </p>
+
+        <p>
+          That’s where my background fits in.
+        </p>
+
+        <p>
+          I’m less interested in isolated models and more interested in how those models behave when they are part of a system that has to work end-to-end.
+        </p>
+
+        <p>
+          How do you make them reliable? Observable? Useful to real people?
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Current Direction</div>
+        <h2>Toward applied and embodied systems</h2>
+
+        <p>
+          Right now, I’m most interested in systems that combine:
+        </p>
+
+        <ul>
+          <li>Data and machine learning</li>
+          <li>Real-time decision making</li>
+          <li>Interaction with the physical world</li>
+        </ul>
+
+        <p>
+          That includes robotics, but also broader classes of systems where software has to operate under real constraints.
+        </p>
+
+        <p>
+          There’s a gap between what models can do in isolation and what systems can do in reality.
+          That gap is where most of the interesting work is.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="small-label">Closing</div>
+        <h2>A consistent thread</h2>
+
+        <p>
+          Looking back, the path from physics to data to implementation to restaurant management to robotics and AI isn’t as disjointed as it might seem.
+        </p>
+
+        <p>
+          The common thread is systems thinking: understanding components, interactions, constraints, and behavior.
+        </p>
+
+        <p>
+          The tools have changed, but the underlying approach hasn’t.
+        </p>
+
+        <p>
+          The goal is still the same:
+          take something complex, understand it, and make it work.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="content">Nick Davidson — portfolio site in progress.</div>
+  </footer>
+</body>
+</html>
