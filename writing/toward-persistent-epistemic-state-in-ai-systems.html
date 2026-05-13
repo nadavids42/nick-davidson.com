@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toward Persistent Epistemic State in AI Systems | Nick Davidson</title>
+  <meta
+    name="description"
+    content="Exploring persistent belief systems, coherence management, and explicit epistemic state as a possible missing layer in long-horizon AI systems."
+  />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div>
+        <div class="brand-name">Nick Davidson</div>
+        <div class="brand-tag">Systems, AI, robotics, writing, and real-world problem solving</div>
+      </div>
+      <nav class="nav">
+        <a href="/#about">About</a>
+        <a href="/#work">Work</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#writing">Writing</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+<main>
+
+<section class="hero">
+  <div class="content">
+    <div class="eyebrow">Writing</div>
+    <h1>Toward Persistent Epistemic State in AI Systems</h1>
+    <p class="lead">
+      Thoughts on memory, coherence, belief systems, and why long-term AI reasoning may require something deeper than context windows and retrieval alone.
+    </p>
+
+    <div class="button-row">
+      <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+    </div>
+  </div>
+</section>
+
+<article class="content">
+
+  <section class="section-card">
+    <div class="small-label">Problem Space</div>
+    <h2>The Fragility of Stateless Intelligence</h2>
+
+    <p>
+      Modern large language models are extraordinarily capable pattern synthesizers, but they remain surprisingly fragile when it comes to long-term coherence. They can generate convincing explanations, maintain short conversational context, and perform impressive reasoning tasks within constrained windows. But underneath the fluency, most current systems are still fundamentally stateless.
+    </p>
+
+    <p>
+      Once a conversation ends, the internal world model effectively disappears unless something external preserves it. This creates an unusual contradiction in modern AI systems: models can produce language that sounds deeply informed and internally consistent while lacking any persistent epistemic structure underneath the surface.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Observation</div>
+    <h2>Simulating Coherence vs Maintaining Coherence</h2>
+
+    <p>
+      Human cognition is not simply next-token prediction operating over a sliding context window. People maintain persistent beliefs, update those beliefs incrementally through evidence, tolerate ambiguity, revise assumptions, track source credibility, and carry internal models of the world forward across time.
+    </p>
+
+    <p>
+      Importantly, those models are not static. Some beliefs become strongly reinforced. Others decay without evidence. Contradictions emerge and must be resolved. Uncertain propositions compete until stronger evidence stabilizes one interpretation over another. Most current AI systems handle these dynamics implicitly, probabilistically, or not at all.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Architecture</div>
+    <h2>Persistent Epistemic Substrates</h2>
+
+    <p>
+      I’ve recently been exploring an architectural direction centered around what I’ve been calling a persistent epistemic substrate: an explicit, structured belief layer designed to sit underneath generative systems rather than inside them. The core idea is relatively simple: instead of treating memory as passive retrieval, treat it as evolving model state.
+    </p>
+
+    <p>
+      In this architecture, claims exist as structured propositions containing subject, relation, object/value, confidence, provenance, timestamps, and exclusivity relationships. Evidence does not overwrite state directly. Instead, beliefs evolve incrementally through weighted reinforcement, bounded competition, and gradual decay toward priors when unsupported.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Dynamics</div>
+    <h2>Beliefs as Evolving Systems</h2>
+
+    <p>
+      One of the more interesting aspects of this approach is that it separates coherence management from generation itself. Candidate propositions can be evaluated before they are emitted as responses. A coherence layer inspects whether a proposed claim supports existing state, contradicts committed beliefs, introduces ambiguity, or represents genuinely novel information.
+    </p>
+
+    <p>
+      This produces something closer to a continuously evolving internal world model than a traditional vector-memory system. Instead of merely retrieving related text, the system attempts to preserve epistemic continuity across time.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Long-Term Systems</div>
+    <h2>Why Memory Alone Is Not Enough</h2>
+
+    <p>
+      Without some form of persistent epistemic structure, systems tend to drift over time. Contradictions accumulate. Identity becomes unstable. Information retrieved from memory may conflict with earlier outputs without any mechanism for arbitration. The problem is not simply memory retention. The problem is coherence maintenance.
+    </p>
+
+    <p>
+      I suspect this becomes increasingly important for embodied or agentic systems operating over long time horizons. A robot navigating the physical world cannot rely entirely on transient conversational context. It needs evolving internal state capable of surviving uncertainty, contradiction, and incomplete information.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Human Cognition</div>
+    <h2>Probabilistic Minds</h2>
+
+    <p>
+      Humans appear to solve this problem imperfectly but continuously. We rarely operate from perfectly stable beliefs. Instead, we maintain probabilistic internal models that adapt incrementally through experience. We tolerate ambiguity until stronger evidence arrives. We preserve partially conflicting interpretations. We revise confidence asymmetrically depending on trust and reinforcement.
+    </p>
+
+    <p>
+      Current LLM architectures are remarkably capable at producing the appearance of these processes without explicitly implementing them. That may be sufficient for many tasks. I’m not convinced it is sufficient for systems intended to maintain long-term coherence across time, environments, and evolving interactions.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Limits</div>
+    <h2>What This Is Not</h2>
+
+    <p>
+      To be clear, I do not think a belief substrate alone produces anything resembling general intelligence. The current prototype intentionally excludes many hard problems including automatic NLP extraction, temporal reasoning, embedding retrieval, autonomous planning, multimodal grounding, and causal world modeling.
+    </p>
+
+    <p>
+      But I do think explicit epistemic state may represent an important missing layer between transient generative capability and truly persistent cognitive systems. At minimum, it creates an interesting engineering question: what happens when AI systems stop treating memory as storage and start treating it as identity?
+    </p>
+  </section>
+
+  <section class="section-card">
+    <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+  </section>
+
+</article>
+</main>
+
+<footer class="footer">
+  <div class="content">Nick Davidson — portfolio site in progress.</div>
+</footer>
+
+</body>
+</html>
