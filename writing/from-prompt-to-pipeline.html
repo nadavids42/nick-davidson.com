@@ -221,6 +221,18 @@
       <li>Email Delivery</li>
     </ul>
 
+     <figure style="margin: 32px 0;">
+      <img
+        src="img/image.png"
+        alt="n8n workflow for AI daily briefing pipeline"
+        style="width:100%; border-radius:12px;"
+      />
+      <figcaption style="margin-top:12px; opacity:0.8;">
+        The full n8n workflow. Email and calendar data are retrieved, merged,
+        cleaned, analyzed by an LLM, formatted, and delivered as a daily briefing.
+      </figcaption>
+    </figure>
+
     <p>
       Breaking the workflow into layers ended up being one of the most important design decisions I made. Each layer had a single responsibility: retrieval gathered information, preparation cleaned and structured it, the AI reasoned about it, and the presentation layer handled delivery.
     </p>
