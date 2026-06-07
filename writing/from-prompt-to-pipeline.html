@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Prompt to Pipeline: How I Accidentally Built an AI Executive Assistant | Nick Davidson</title>
+  <meta
+    name="description"
+    content="A practical reflection on building an AI-powered daily briefing workflow, and why the real value in AI systems often comes from context preparation, orchestration, and pipeline design."
+  />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div>
+        <div class="brand-name">Nick Davidson</div>
+        <div class="brand-tag">Systems, AI, robotics, writing, and real-world problem solving</div>
+      </div>
+      <nav class="nav">
+        <a href="/#about">About</a>
+        <a href="/#work">Work</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#writing">Writing</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+<main>
+
+<section class="hero">
+  <div class="content">
+    <div class="eyebrow">Writing</div>
+    <h1>From Prompt to Pipeline: How I Accidentally Built an AI Executive Assistant</h1>
+    <p class="lead">
+      What building a daily AI briefing taught me about context preparation, workflow design, and why the model is often the least interesting part of an AI system.
+    </p>
+
+    <div class="button-row">
+      <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+    </div>
+  </div>
+</section>
+
+<article class="content">
+
+  <section class="section-card">
+    <div class="small-label">Experiment</div>
+    <h2>A Simple Daily Briefing Idea</h2>
+
+    <p>
+      Over the last week, I've been experimenting with a simple idea:
+    </p>
+
+    <p>
+      Could I build an AI-powered daily briefing that tells me what I should focus on each morning?
+    </p>
+
+    <p>
+      What started as a custom Gem in Gemini evolved into a Workspace Studio workflow and eventually into a fully automated n8n pipeline.
+    </p>
+
+    <p>
+      The final result isn't particularly revolutionary. Every morning it reviews my email, reviews my calendar, identifies important commitments, and generates a briefing with recommended priorities and next actions.
+    </p>
+
+    <p>
+      The surprising part wasn't the tool itself.
+    </p>
+
+    <p>
+      The surprising part was what it taught me about AI.
+    </p>
+
+    <p>
+      Each version worked better than the last, but not because I used a better model or wrote a better prompt. Each version improved because I became better at preparing context before the AI ever saw it.
+    </p>
+
+    <p>
+      In the process, I learned something I didn't expect:
+    </p>
+
+    <p>
+      The AI is often the least interesting part of the system.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Version 1</div>
+    <h2>The Gemini Gem</h2>
+
+    <p>
+      My first attempt was a custom Gem in Gemini.
+    </p>
+
+    <p>
+      I gave it access to my notes, calendar, and email and asked it to help me organize my day.
+    </p>
+
+    <p>
+      On paper, it sounded ideal.
+    </p>
+
+    <p>
+      The AI had access to my schedule, my communications, and my notes. It should have been able to tell me exactly what mattered.
+    </p>
+
+    <p>
+      Sometimes it did.
+    </p>
+
+    <p>
+      Other times it missed important details, overemphasized minor information, confidently connected things that weren't actually related, or even invented projects and project details that didn't exist.
+    </p>
+
+    <p>
+      The issue wasn't the model.
+    </p>
+
+    <p>
+      The issue was structure.
+    </p>
+
+    <p>
+      The Gem had access to a massive amount of information, but very little guidance about what information mattered or how it should be prioritized.
+    </p>
+
+    <p>
+      Like many early AI experiments, it taught me that access to information is not the same thing as understanding information.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Version 2</div>
+    <h2>Workspace Studio</h2>
+
+    <p>
+      The next iteration focused on structure.
+    </p>
+
+    <p>
+      Using Google's Workspace Studio, I built a workflow that broke the problem into separate steps.
+    </p>
+
+    <p>
+      Unread emails were extracted and converted into structured JSON using a Gemini workflow whose only goal was to extract relevant data and structure it consistently for downstream processing.
+    </p>
+
+    <p>
+      A calendar-focused workflow analyzed my schedule and returned calendar information as structured JSON.
+    </p>
+
+    <p>
+      A final reasoning step combined the information and generated the daily briefing.
+    </p>
+
+    <p>
+      This was a significant improvement.
+    </p>
+
+    <p>
+      The AI was no longer trying to discover information buried inside email threads or calendar events. The retrieval and extraction steps happened before the reasoning step.
+    </p>
+
+    <p>
+      For the first time, I started thinking about AI systems instead of AI prompts.
+    </p>
+
+    <p>
+      The model was no longer responsible for finding information. It was responsible for reasoning about information.
+    </p>
+
+    <p>
+      But another problem quickly emerged.
+    </p>
+
+    <p>
+      The data was structured, but it wasn't curated. Calendar events still contained information that didn't matter. Emails still contained information that wasn't actionable.
+    </p>
+
+    <p>
+      I had solved the data access problem. I had partially solved the structure problem. I still hadn't solved the context problem.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Version 3</div>
+    <h2>n8n</h2>
+
+    <p>
+      This weekend I rebuilt everything from scratch in n8n.
+    </p>
+
+    <p>
+      The architecture became much more explicit.
+    </p>
+
+    <h3>Retrieval Layer</h3>
+    <ul>
+      <li>Gmail</li>
+      <li>Google Calendar</li>
+    </ul>
+
+    <h3>Preparation Layer</h3>
+    <ul>
+      <li>Merge</li>
+      <li>Python Cleanup</li>
+    </ul>
+
+    <h3>Reasoning Layer</h3>
+    <ul>
+      <li>AI Analysis</li>
+    </ul>
+
+    <h3>Presentation Layer</h3>
+    <ul>
+      <li>Markdown Formatting</li>
+      <li>HTML Conversion</li>
+      <li>Email Delivery</li>
+    </ul>
+
+    <p>
+      Breaking the workflow into layers ended up being one of the most important design decisions I made. Each layer had a single responsibility: retrieval gathered information, preparation cleaned and structured it, the AI reasoned about it, and the presentation layer handled delivery.
+    </p>
+
+    <p>
+      The result was a workflow that was easier to understand, easier to debug, and easier to improve.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Orchestration</div>
+    <h2>The Merge Node That Taught Me a Bigger Lesson</h2>
+
+    <p>
+      One of the most valuable lessons I learned had nothing to do with AI.
+    </p>
+
+    <p>
+      Early versions of the workflow retrieved email and calendar information separately and then passed the results downstream. The workflow appeared to work. But something strange kept happening.
+    </p>
+
+    <p>
+      The final briefing was being generated twice. The email was being sent twice.
+    </p>
+
+    <p>
+      The AI wasn't confused. The prompt wasn't broken. The workflow was.
+    </p>
+
+    <p>
+      The issue was that email and calendar data were traveling through separate execution paths. Instead of receiving one combined context, downstream steps were executing once for the email data and again for the calendar data.
+    </p>
+
+    <p>
+      The solution was surprisingly simple: a merge node that combined both data sources into a single execution context before any cleanup or analysis occurred. Immediately the duplicate executions disappeared.
+    </p>
+
+    <p>
+      What struck me was that the problem wasn't an AI problem at all. It was a systems design problem. And the fix had nothing to do with prompts, models, or reasoning.
+    </p>
+
+    <p>
+      The more I build these workflows, the more I find that many AI problems are actually orchestration problems.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Context Preparation</div>
+    <h2>The AI Shouldn't Clean Your Data</h2>
+
+    <p>
+      The biggest realization during the n8n rebuild was that the AI should not be responsible for cleaning data. That work should happen before the model is called.
+    </p>
+
+    <p>
+      Instead of feeding raw email and calendar data directly into the model, I used Python to transform both sources into a simplified format containing only the information that mattered:
+    </p>
+
+    <ul>
+      <li>Meeting titles</li>
+      <li>Dates and times</li>
+      <li>Participants</li>
+      <li>Email subjects and summaries</li>
+      <li>Actionable details</li>
+    </ul>
+
+    <p>
+      Conference IDs, reminder settings, OAuth metadata, calendar formatting — gone. By the time the model saw the data, the context had already been prepared.
+    </p>
+
+    <p>
+      The AI was no longer acting as a parser. It was acting as a reasoning engine.
+    </p>
+
+    <p>
+      The briefings became shorter, more focused, and more useful. Token usage dropped because the model wasn't processing information that had no bearing on the output.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Takeaway</div>
+    <h2>The Lesson I Didn't Expect</h2>
+
+    <p>
+      When I started this project, I assumed the most important component would be the model. Now I think the model is often the least interesting part.
+    </p>
+
+    <p>
+      The real work happens before the prompt: data collection, workflow design, context preparation, filtering, transformation, prioritization. The model can only reason about the information it receives. Give it noise, get noise back. Give it a clean, structured context, and even a simple prompt produces something useful.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Systems Thinking</div>
+    <h2>From AI Chat to AI Systems</h2>
+
+    <p>
+      The biggest shift wasn't technical. It was conceptual.
+    </p>
+
+    <p>
+      I started this project asking: "How can I use AI to summarize my day?"
+    </p>
+
+    <p>
+      I ended up asking: "What events should trigger AI reasoning?"
+    </p>
+
+    <p>
+      That may sound like a small distinction, but it fundamentally changes how you think about AI. Instead of a chatbot waiting for a prompt, AI becomes a component within a larger system.
+    </p>
+
+    <p>
+      A project document changes. A meeting transcript is uploaded. A support ticket is escalated. A customer health score drops.
+    </p>
+
+    <p>
+      Those events trigger workflows. The workflows gather context. The AI performs reasoning. The output drives action.
+    </p>
+
+    <p>
+      Once I started thinking this way, the prompts became less interesting than the systems surrounding them.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <div class="small-label">Next Steps</div>
+    <h2>Where This Goes Next</h2>
+
+    <p>
+      The current n8n workflow is still version one. I'd like to incorporate project notes, interview preparation materials, and knowledge bases. I'd like to automatically identify action items and open loops, experiment with meeting preparation agents, and eventually build event-driven workflows that regenerate analysis whenever new information appears.
+    </p>
+
+    <p>
+      But the biggest takeaway isn't a feature on that list.
+    </p>
+
+    <p>
+      It's that the bottleneck in most AI workflows isn't the model — it's everything upstream of it. The organizations that create the most value won't necessarily be the ones with access to the largest models. They'll be the ones that have figured out which events deserve AI attention, how to prepare context worth reasoning about, and how to route the output somewhere it can actually change something.
+    </p>
+
+    <p>
+      That's what I learned from building a daily briefing tool. And I suspect it applies well beyond my inbox.
+    </p>
+  </section>
+
+  <section class="section-card">
+    <a class="button secondary" href="/index.html#writing">Back to Writing</a>
+  </section>
+
+</article>
+</main>
+
+<footer class="footer">
+  <div class="content">Nick Davidson — portfolio site in progress.</div>
+</footer>
+
+</body>
+</html>
+
